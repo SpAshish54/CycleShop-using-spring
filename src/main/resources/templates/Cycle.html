@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cycles</title>
+    
+    <style>
+        /* Container styles */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 4px 8px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+
+        .btn-info:hover {
+            background-color: #117a8b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-3">
+        <h1>Welcome to Cycle Shop</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>Cycle</td>
+                    <td>Stock</td>
+                    <td>Restock</td>
+                </tr>
+            </thead>
+            <tbody th:each="cycle : ${cycles}">
+                <td th:text="${cycle.id}"></td>
+                <td th:text="${cycle.name}"></td>
+                <td th:text="${cycle.stock}"></td>
+                <td>
+                    <a th:href="@{/borrow/{id}(id=${cycle.id})}" th:if="${cycle.stock != 0}">Borrow</a>
+                    <a th:href="@{/return/{id}(id=${cycle.id})}" th:if="${cycle.borrow == 1}">Return</a>
+                </td>
+            </tbody>
+        </table>
+
+        <div>
+            <a th:href="@{restock}" class="btn btn-info btn-sm">Restock</a>
+        </div>
+    </div>
+</body>
+</html>
